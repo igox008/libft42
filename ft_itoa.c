@@ -1,58 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alaassir <alaassir@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/02 04:39:57 by alaassir          #+#    #+#             */
+/*   Updated: 2023/11/02 05:41:06 by alaassir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-int n_len(int n)
+static int	n_len(int n)
 {
-    int len = 0;
-    if (n == -2147483648)
-        return (11);
-    if (n < 0)
-    {
-        n *= -1;
-        len++;
-    }
-    while (n > 0)
-    {
-        n /= 10;
-        len++;
-    }
-    return (len);
+	int	i;
+
+	i = 0;
+	if (n <= 0)
+	{
+		i++;
+		if (n == 0)
+			return (i);
+		n *= -1;
+	}
+	while (n % 10 >= 0 && n > 0)
+	{
+		i++;
+		n /= 10;
+	}
+	return (i);
 }
 
-void sp_case(char *nbr, int len)
+char	*ft_itoa(int n)
 {
-    int i = 0;
-    while (i < len)
-    {
-        nbr[i] = "-2147483648"[i];
-        i++;
-    }
-    nbr[i] = '\0';
-}
-char *ft_itoa(int n)
-{
-    int i = 0;
-    int p;
-    int len = n_len(n);
-    char *nbr = (char *)malloc(len + 1);
-    if (nbr == NULL)
-        return (NULL);
-    if (n == -2147483648)
-    {
-        sp_case(nbr, len);
-        return (nbr);
-    }
-    if (n < 0)
-    {
-        *nbr = '-';
-        nbr++;
-    }
-    while (n > 0)
-    {
-        p = n % 10;
-        n /= 10;
-        nbr[len - i - 1] = p + 48;
-        i++;
-    }
-    nbr[len] = '\0';
-    return (nbr);
+	int		i;
+	int		len;
+	char	*num;
+
+	i = 0;
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	len = n_len(n);
+	num = (char *)malloc(len + 1);
+	if (num == NULL)
+		return (NULL);
+	if (n < 0)
+	{
+		n *= -1;
+		num[0] = '-';
+		i = 1;
+	}
+	num[len] = '\0';
+	while (len - 1 >= i)
+	{
+		num[len - 1] = (n % 10) + 48;
+		n /= 10;
+		len--;
+	}
+	return (num);
 }

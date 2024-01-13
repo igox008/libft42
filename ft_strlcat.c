@@ -1,24 +1,39 @@
-#include "libft.h"
-int ft_strlcat(char *dst, char *src, int size)
-{
-    int i = 0;
-    int to_rtrn;
-    int s_len;
-    int d_len;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alaassir <alaassir@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/02 17:38:19 by alaassir          #+#    #+#             */
+/*   Updated: 2023/11/03 05:15:02 by alaassir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-    s_len = ft_strlen(src);
-    if (size == 0)
-        return (s_len);
-    d_len = ft_strlen(dst);
-    if (d_len < size)
-        to_rtrn = d_len + s_len;
-    else
-        to_rtrn = size + s_len;
-    while (src[i] && d_len + i < size - 1)
-    {
-        dst[d_len + i] = src[i];
-        i++;
-    }
-    dst[d_len + i] = '\0';
-    return (to_rtrn);
+#include "libft.h"
+
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	srclen;
+	size_t	rsl;
+	size_t	dstlen;
+
+	i = 0;
+	rsl = 0;
+	srclen = ft_strlen(src);
+	if (!dstsize)
+		return (srclen);
+	dstlen = ft_strlen((const char *)dst);
+	while (src[i] && dstlen + i < dstsize - 1)
+	{
+		dst[dstlen + i] = src[i];
+		i++;
+	}
+	dst[dstlen + i] = '\0';
+	if (dstlen < dstsize)
+		rsl = srclen + dstlen;
+	else
+		rsl = srclen + dstsize;
+	return (rsl);
 }

@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alaassir <alaassir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/01 12:09:54 by alaassir          #+#    #+#             */
-/*   Updated: 2023/11/06 21:07:23 by alaassir         ###   ########.fr       */
+/*   Created: 2023/11/02 14:01:51 by alaassir          #+#    #+#             */
+/*   Updated: 2023/11/02 15:52:11 by alaassir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_lstsize(t_list *lst)
 {
+	t_list	*tmp;
 	int		i;
-	int		t;
-	size_t	j;
-	char	*new;
 
+	tmp = lst;
 	i = 0;
-	j = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	t = ft_strlen(s1) + ft_strlen(s2);
-	new = (char *)malloc(t + 1);
-	if (new == NULL)
-		return (NULL);
-	while (j < ft_strlen(s1))
-		new[i++] = s1[j++];
-	j = 0;
-	while (j < ft_strlen(s2))
-		new[i++] = s2[j++];
-	new[i] = '\0';
-	return (new);
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
 }
